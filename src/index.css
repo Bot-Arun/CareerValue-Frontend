@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    ul, ol ,p ,li ,a ,h1,h2,h3,h4,h5,h6{
+      list-style: revert;
+      padding: revert;
+      font-size: revert;
+      white-space: revert;
+    }
+  }
