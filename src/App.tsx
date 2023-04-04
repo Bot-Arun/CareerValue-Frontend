@@ -17,6 +17,7 @@ import { setJWT } from "./reducers/userControl";
 import Cookies from "universal-cookie";
 import { QuestionPage } from "./Pages/QuestionPage";
 import { Question } from "./components/Question";
+import { LINK } from ".";
 
 const router = createBrowserRouter (
   createRoutesFromElements(
@@ -35,7 +36,7 @@ function App() {
     useGoogleOneTapLogin({
         onSuccess: credentialResponse => {
           console.log(credentialResponse);
-          fetch('http://127.0.0.1:8000/login/',{
+          fetch(`${LINK}/login/',{
             method:'POST',
             body: JSON.stringify( credentialResponse),
           } , ).then(res => {
