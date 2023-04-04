@@ -25,19 +25,19 @@ export interface UserProps  {
     picture :string,
     email:string,
 }
-export function getUserInfo  (jwt:string)  {
+export function getUserInfo  (jwt:string) :UserProps {
     if (jwt!== "" ) {
 
         const userInfo :UserProps = jwt_decode(jwt)
         return {
             name :userInfo.name ,
-            url : userInfo.picture  , 
+            picture : userInfo.picture  , 
             email:userInfo.email
         } 
     }
     return {
         name :"" ,
-        url : ""  , 
+        picture : ""  , 
         email:""
     }
 

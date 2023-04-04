@@ -81,7 +81,7 @@ export const Header = () => {
           <div className="dropdown dropdown-bottom">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src={userInfo.url} referrerPolicy="no-referrer" alt="" />
+                <img src={userInfo.picture} referrerPolicy="no-referrer" alt="" />
               </div>
             </label>
             <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
@@ -107,7 +107,7 @@ export const Header = () => {
           <IoNotificationsSharp className="text-gray-400" size={24}></IoNotificationsSharp>
         </div>
       </div>
-        ):<button className="bg-red-400" onClick={() =>login()} >Login</button>
+        ):<button className="btn ml-10" onClick={() =>login()} >Login</button>
       }
       
     </header>)

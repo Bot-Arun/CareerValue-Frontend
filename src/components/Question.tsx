@@ -1,19 +1,32 @@
 import { useEffect, useState } from "react"
 import { IoTriangle } from "react-icons/io5"
 import { useAppSelector } from "../app/hooks"
-import { Link } from "react-router-dom"
-
-export const Question = ({data,your_vote}:any) => {
+import { Link, NavLink, useNavigate } from "react-router-dom"
+import Parser from 'html-react-parser'
+import  { Modal, Button} from 'react-daisyui'
+import { getUserInfo } from "../reducers/userControl"
+export const Question = ({data,your_vote,refresh,setRefresh}:any) => {
 
   type bval = "yes" | "no" | ""
   const [selected, setSelected] = useState<bval>(your_vote)
   const [loading  , setLoading  ] = useState<boolean>(false)
   const [likeCount, SetlikeCount] = useState(0)
   const jwt = useAppSelector(state => state.jwt)
+  const [visible, setVisible] = useState(false)
+  const navigate = useNavigate()
+  const handleDeletePost = () => {
+    setVisible(false);
+    fetch(`http://127.0.0.1:8000/question/${data.pk}/delete/`, {
+        method:'POST',
+        body:JSON.stringify({
+          credential:jwt,
+        })
+      } ).then (()=> setRefresh(refresh+1))
+  } 
   useEffect(() => {
     if (jwt) {
       setLoading(true) ;
-      fetch('http://127.0.0.1:8000/like/', {
+      fetch('http://127.0.0.1:8000/question/like/', {
         method:'POST',
         body:JSON.stringify({
           credential:jwt,
@@ -32,8 +45,10 @@ export const Question = ({data,your_vote}:any) => {
     return (
         <div className="question flex w-full rounded-3xl my-2 bg-white shadow-md ">
             <div className="w-40 flex flex-col ">
-              <div className=" self-center  my-5 ">
-                <img src={data.url} referrerPolicy="no-referrer" className="rounded-full" alt="" />
+              <div className="avatar p-7">
+                <div className=" mask mask-squircle">
+                  <img src={data.url} />
+                </div>
               </div>
               <div className="flex flex-col">
                 <IoTriangle className="self-center my-2 hover:bg-gray-200 rounded-md" size={25} onClick={() => setSelected((selected!==undefined?selected:data.your_vote) === 'yes' && !loading ? '' : 'yes')} color={(selected!==undefined?selected:data.your_vote) === 'yes' && !loading ? "green" : "#677075"}></IoTriangle>
@@ -44,31 +59,27 @@ export const Question = ({data,your_vote}:any) => {
             <div className="content flex-col w-full flex py-3">
             <div className="font-bold justify-between text-xl mb-1 flex flex-row">                 
               <span>{data.name}</span>
-              <span className="mx-4 font-medium text-blue-500 text-lg italic"> Asked {data.date.slice(0,10)}</span>
+              <span className="mx-4 badge-ghost badge-lg badge"> Asked {data.date.slice(0,10)}</span>
             </div>
-              <Link to={'/question/'+ data.pk } >
+              <NavLink to={'/question/'+ data.pk } >
                 <div className="question text-2xl  pr-5 py-3 font-bold text-black">
                   <span>
                     {data?.title}
                   </span>
-                  <span className="ml-10 badge-lg badge badge-accent">{data.domain}</span>
+                  <span className="ml-10 badge-lg badge badge-outline badge-primary">{data.domain}</span>
                 </div>
-              </Link>
+              </NavLink>
               <div className="answer text-lg pr-5 py-3 font-medium text-gray-700">
-                {data.detailed_question}
+                {Parser(data.detailed_question)}
               </div>
-              <div className="flex py-3 px-5 bg-[#f5f5f5] mr-4 my-4 justify-between">
-                <div className="border mr-5 px-2 py-2 bg-white">
-                  14 answers
-                </div>
-                <div className="border px-3 mr-auto py-2 bg-white">
-                  4 views
-                </div>
-                <div className="btn ">
-                  Answer
-                </div>
+              <div className="flex py-3 px-5 mr-4 my-4 justify-end">
+                  {getUserInfo(jwt).picture === data.url && <button onClick={()=> setVisible(true)} className="btn mr-3 btn-error">Delete</button>}
+                  <button className="btn " onClick={()=>navigate('/question/'+ data.pk )} >
+                    View Answers
+                  </button>
               </div>
             </div>
+            
           </div>
     )
 }

@@ -11,6 +11,7 @@ export const QuestionPage = () => {
     let { id} = useParams()
     const [data, setData] = useState();
     const jwt = useAppSelector( state => state.jwt)
+    const [refresh, setRefresh] = useState(0)
     useEffect(() => {
       fetch(`http://127.0.0.1:8000/question/${id}/`, 
       jwt ?{
@@ -21,7 +22,7 @@ export const QuestionPage = () => {
       }:{})
       .then(x => x.json())
       .then(x => setData(x))
-    }, [jwt])
+    }, [jwt,refresh])
     // useEffect(
     //   ()=>{
     //     console.log(data)
@@ -34,7 +35,7 @@ export const QuestionPage = () => {
       <NavBar/>
       <section className="w-[44%] border-0 my-5 shadow-2xl rounded-3xl bg-white ">
         <div className="questions flex flex-col">
-            {data &&<QuestionwithAnswer data={data} ></QuestionwithAnswer>}
+            {data &&<QuestionwithAnswer data={data} refresh={refresh} setRefresh={setRefresh} ></QuestionwithAnswer>}
         </div>
       </section>
       <section className="w-[28%] p-4 text-black flex flex-col bg-[#f2f2f2] ">

@@ -17,6 +17,7 @@ import { useAppSelector } from "../app/hooks"
 export const Home = () => {
   const jwt = useAppSelector(state => state.jwt)
   const [pools, setPools] = useState<any[]>([])
+  const [refresh, setRefresh] = useState(0)
   useEffect(() => {
     console.log(jwt,"changed")
     fetch('http://127.0.0.1:8000/questions/',
@@ -36,10 +37,7 @@ export const Home = () => {
         }
         setPools([...result])
     } )
-  }, [jwt])
-  useEffect(()=>{
-    console.log(pools)
-  },[pools])
+  }, [jwt,refresh])
   
     return (
       <>
@@ -55,7 +53,7 @@ export const Home = () => {
           <a className="px-5 py-7 ">Most Voted</a>
         </div> */}
         <div className="questions flex flex-col bg-[#f2f2f2]">
-        {pools.length > 0 && pools.map( x  => <Question data={x} your_vote={x.your_vote}></Question>) }  
+        {pools.length > 0 && pools.map( x  => <Question data={x} refresh={refresh} setRefresh={setRefresh} your_vote={x.your_vote}></Question>) }  
         </div>
       </section>
       <section className="w-[28%] p-4 text-black flex flex-col bg-[#f2f2f2] ">
