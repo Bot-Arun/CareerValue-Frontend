@@ -36,7 +36,7 @@ function App() {
     useGoogleOneTapLogin({
         onSuccess: credentialResponse => {
           console.log(credentialResponse);
-          fetch(`${LINK}/login/',{
+          fetch(`${LINK}/login/`,{
             method:'POST',
             body: JSON.stringify( credentialResponse),
           } , ).then(res => {
