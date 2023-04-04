@@ -5,6 +5,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom"
 import Parser from 'html-react-parser'
 import  { Modal, Button} from 'react-daisyui'
 import { getUserInfo } from "../reducers/userControl"
+import { LINK } from ".."
 export const Question = ({data,your_vote,refresh,setRefresh}:any) => {
 
   type bval = "yes" | "no" | ""
@@ -16,7 +17,7 @@ export const Question = ({data,your_vote,refresh,setRefresh}:any) => {
   const navigate = useNavigate()
   const handleDeletePost = () => {
     setVisible(false);
-    fetch(`http://127.0.0.1:8000/question/${data.pk}/delete/`, {
+    fetch(`${LINK}/question/${data.pk}/delete/`, {
         method:'POST',
         body:JSON.stringify({
           credential:jwt,
@@ -26,7 +27,7 @@ export const Question = ({data,your_vote,refresh,setRefresh}:any) => {
   useEffect(() => {
     if (jwt) {
       setLoading(true) ;
-      fetch('http://127.0.0.1:8000/question/like/', {
+      fetch(`${LINK}/question/like/`, {
         method:'POST',
         body:JSON.stringify({
           credential:jwt,
