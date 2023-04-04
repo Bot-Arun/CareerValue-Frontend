@@ -46,7 +46,6 @@ export const QuestionwithAnswer = ({data ,refresh,setRefresh}:any) => {
     }
     return (
       <div className=" px-2 text-lg">
-          <div   >{Parser(value)}</div>
         <div className=" question flex w-full list-disc ">
             <div className="w-40 flex flex-col ">
               <div className="avatar p-7">

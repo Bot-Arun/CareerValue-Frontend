@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { googleLogout, useGoogleLogin } from "@react-oauth/google"
 import jwt_decode from 'jwt-decode'
 import Cookies from "universal-cookie"
+import { LINK } from ".."
 
 
 export const Header = () => {
@@ -14,7 +15,7 @@ export const Header = () => {
   const login = useGoogleLogin({
     onSuccess: credentialResponse => {
       console.log(credentialResponse);
-      fetch('http://127.0.0.1:8000/login/',{
+      fetch(`${LINK}/login/`,{
         method:'POST',
         body: JSON.stringify( {credential:credentialResponse}),
       } , ).then(res => {
