@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import {store} from './app/store'
 import { Provider } from 'react-redux'
 import { GoogleOAuthProvider } from '@react-oauth/google';
-export const LINK = process.env.LINK || 'http://127.0.0.1:8000/' 
+export const LINK = process.env.LINK || 'https://careervalue-django.onrender.com' 
 console.log('link from hoem',LINK)
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
