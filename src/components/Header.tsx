@@ -24,7 +24,6 @@ export const Header = () => {
           console.log(credential ?jwt_decode(credential) :"no response")
           dispatch(setJWT(credential))
           const cookies = new Cookies();
-          cookies.set('jwt', credential, { domain:'http://127.0.0.1:8000' });
         }
         else {
           console.log('unable to login');

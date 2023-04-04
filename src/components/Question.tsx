@@ -79,7 +79,14 @@ export const Question = ({data,your_vote,refresh,setRefresh}:any) => {
                   </button>
               </div>
             </div>
-            
+            <Modal open={visible}>
+                <Modal.Header>Alert</Modal.Header>
+                <Modal.Body>Are you sure want to delete this post {data.pk} ?</Modal.Body>
+                <Modal.Actions>
+                  <Button className="btn btn-error" onClick={()=> handleDeletePost()} >Confirm</Button>
+                  <Button className="btn " onClick={()=> setVisible(false)} >Cancel</Button>
+                </Modal.Actions>
+              </Modal>
           </div>
     )
 }

@@ -4,6 +4,7 @@ import { IoNotificationsSharp } from "react-icons/io5"
 import { useAppSelector } from "../app/hooks";
 import { useNavigate } from "react-router-dom";
 import ReactQuill from 'react-quill'
+import { LINK } from "..";
 
 export const  QuestionForm  = () => {
   const [univercities, setUnivercities] = useState<string[]>([]);
@@ -13,13 +14,13 @@ export const  QuestionForm  = () => {
   const jwt = useAppSelector(state => state.jwt)
   const [value, setValue] = useState("")
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/univercities/')
+    fetch(`${LINK}/univercities/`)
     .then( x =>x.json())
     .then( x => setUnivercities(x))
   },[])
   const navigate = useNavigate()
   const handlePost = () => {
-    fetch('http://127.0.0.1:8000/question/create',{
+    fetch(`${LINK}/question/create`,{
       method:'POST',
       body:JSON.stringify({
         credential:jwt,

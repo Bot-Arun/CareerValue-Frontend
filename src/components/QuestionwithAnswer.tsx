@@ -7,6 +7,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import Parser from 'html-react-parser'
 import { getUserInfo } from "../reducers/userControl"
+import { LINK } from ".."
 export const QuestionwithAnswer = ({data ,refresh,setRefresh}:any) => {
 
   type bval = "yes" | "no" | ""
@@ -18,7 +19,7 @@ export const QuestionwithAnswer = ({data ,refresh,setRefresh}:any) => {
   useEffect(() => {
     if (jwt) {
       setLoading(true) ;
-      fetch('http://127.0.0.1:8000/question/like/', {
+      fetch(`${LINK}/question/like/`, {
         method:'POST',
         body:JSON.stringify({
           credential:jwt,
@@ -35,7 +36,7 @@ export const QuestionwithAnswer = ({data ,refresh,setRefresh}:any) => {
   }, [selected])
     const [value, setValue] = useState("")
     const handleAnswerPost = () => {
-      fetch(`http://127.0.0.1:8000/question/${data.pk}/answer/create/`, {
+      fetch(`${LINK}/question/${data.pk}/answer/create/`, {
         method:'POST',
         body:JSON.stringify({
           credential:jwt,

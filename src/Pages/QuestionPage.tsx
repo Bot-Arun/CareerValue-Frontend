@@ -6,14 +6,16 @@ import { useAppSelector } from "../app/hooks"
 import { useEffect, useState } from "react"
 import { Question } from "../components/Question"
 import { QuestionwithAnswer } from "../components/QuestionwithAnswer"
+import { LINK } from ".."
 
 export const QuestionPage = () => {
+  
     let { id} = useParams()
     const [data, setData] = useState();
     const jwt = useAppSelector( state => state.jwt)
     const [refresh, setRefresh] = useState(0)
     useEffect(() => {
-      fetch(`http://127.0.0.1:8000/question/${id}/`, 
+      fetch(`${LINK}/question/${id}/`, 
       jwt ?{
         method:'POST',
         body:JSON.stringify({

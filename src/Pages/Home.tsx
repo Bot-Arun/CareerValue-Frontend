@@ -13,14 +13,16 @@ import { Footer } from "../components/Footer"
 import { Link } from "react-router-dom"
 import { Question } from "../components/Question"
 import { useAppSelector } from "../app/hooks"
+import { LINK } from ".."
 
 export const Home = () => {
+  console.log(LINK,'LLINKSDFLKSD')
   const jwt = useAppSelector(state => state.jwt)
   const [pools, setPools] = useState<any[]>([])
   const [refresh, setRefresh] = useState(0)
   useEffect(() => {
     console.log(jwt,"changed")
-    fetch('http://127.0.0.1:8000/questions/',
+    fetch(`${LINK}/questions/`,
     
     jwt ?{
       method:'POST',

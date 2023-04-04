@@ -8,6 +8,7 @@ import { setJWT } from "../reducers/userControl";
 import { useAppDispatch } from "../app/hooks";
 import Cookies from "universal-cookie";
 import { Link } from "react-router-dom";
+import { LINK } from "..";
 export const Login = () => {
   const dispatch = useAppDispatch();
 
@@ -20,7 +21,7 @@ export const Login = () => {
          <GoogleLogin
             onSuccess={ credentialResponse => {
           console.log(credentialResponse);
-          fetch('http://127.0.0.1:8000/login/',{
+          fetch(`${LINK}/login/`,{
             method:'POST',
             body: JSON.stringify( credentialResponse),
           } , ).then(res => {

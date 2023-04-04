@@ -4,6 +4,8 @@ import { useAppSelector } from "../app/hooks"
 import { Modal, Button} from 'react-daisyui'
 import Parser from 'html-react-parser'
 import { getUserInfo } from "../reducers/userControl"
+import { LINK } from ".."
+
 
 export const Answer = ({data,pk,refresh,setRefresh}:any) => {
     type bval = "yes" | "no" | ""
@@ -14,7 +16,7 @@ export const Answer = ({data,pk,refresh,setRefresh}:any) => {
     const jwt = useAppSelector(state => state.jwt)
     const  handleDeleteAnswer = () => {
         setVisible(false)
-        fetch(`http://127.0.0.1:8000/answer/${data.pk}/delete/`, {
+        fetch(`${LINK}/answer/${data.pk}/delete/`, {
             method:'POST',
             body:JSON.stringify({
             credential:jwt,
@@ -25,7 +27,7 @@ export const Answer = ({data,pk,refresh,setRefresh}:any) => {
     useEffect(() => {
         if (jwt) {
         setLoading(true) ;
-        fetch(`http://127.0.0.1:8000/question/${pk}/${data.pk}/like/`, {
+        fetch(`${LINK}/question/${pk}/${data.pk}/like/`, {
             method:'POST',
             body:JSON.stringify({
             credential:jwt,
