@@ -58,7 +58,7 @@ function App() {
         },
     })
   return (
-    <div className="">
+    <div className="bg-[#f2f2f2]">
       
         <RouterProvider router={router}></RouterProvider>
       
